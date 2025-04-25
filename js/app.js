@@ -39,7 +39,7 @@ function addToDOM(product) {
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
-    <img src="${product.url}" alt="${product.name}">
+        <img src=${"https://castore.uz/upload/iblock/45a/rjsr0s3mlruad1cbk149v4gnsa1cp0h7/smartfon-samsung-galaxy-s22-ultra-sm-g908b-ds-128gb-red.jpg"} alt="" width="100">
     <h3>${product.name}</h3>
     <p>Price: $${product.price}</p>
     <p>Color: ${product.color}</p>
