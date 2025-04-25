@@ -1,68 +1,64 @@
-
 const addBtn = document.getElementById('addBtn');
 const modal = document.getElementById('modal');
 const createBtn = document.getElementById('createBtn');
 const container = document.getElementById('productContainer');
 
-const nameInput = document.getElementById('name');
-const priceInput = document.getElementById('price');
-const colorInput = document.getElementById('color');
-const urlInput = document.getElementById('url');
+const nameInp = document.getElementById('name');
+const priceInp = document.getElementById('price');
+const colorInp = document.getElementById('color');
+const urlInp = document.getElementById('url');
 const categoryInput = document.getElementById('category');
-
 
 addBtn.onclick = () => {
   modal.classList.remove('hidden');
 };
+
+
 createBtn.onclick = () => {
   const product = {
     id: Date.now(),
-    name: nameInput.value,
-    price: priceInput.value,
-    color: colorInput.value,
-    url: urlInput.value,
+    name: nameInp.value,
+    price: priceInp.value,
+    color: colorInp.value,
+    url: urlInp.value,
     category: categoryInput.value
   };
 
-  let products = localStorage.getItem('products');
-  if (products) {
-    products = JSON.parse(products);
-  } else {
-    products = [];
-  }
-
-  products.push(product);
-  localStorage.setItem('products', JSON.stringify(products));
-
-    
-  
+  addToDOM(product);
+  saveToStorage(product);
   modal.classList.add('hidden');
-  nameInput.value = '';
-  priceInput.value = '';
-  colorInput.value = '';
-  urlInput.value = '';
-  categoryInput.value = '';
+  clearInputs();
 };
 
-
-window.onload = () => {
-  let products = localStorage.getItem('products');
-  if (products) {
-    products = JSON.parse(products);
-    products.forEach(showProduct);
-  }
+onload = () => {
+  const products = JSON.parse(localStorage.getItem('products')) || [];
+  products.forEach(p => addToDOM(p));
 };
 
-
-function showProduct(p) {
+function addToDOM(product) {
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
-    <img src="${p.url}" alt="${p.name}">
-    <h3>${p.name}</h3>
-    <p>Price: $${p.price}</p>
-    <p>Color: ${p.color}</p>
-    <p>Category: ${p.category}</p>
+    <img src="${product.url}" alt="${product.name}">
+    <h3>${product.name}</h3>
+    <p>Price: $${product.price}</p>
+    <p>Color: ${product.color}</p>
+    <p>Category: ${product.category}</p>
   `;
   container.appendChild(card);
 }
+
+function saveToStorage(product) {
+  const products = JSON.parse(localStorage.getItem('products')) || [];
+  products.push(product);
+  localStorage.setItem('products', JSON.stringify(products));
+}
+
+function clearInputs() {
+  nameInp.value = '';
+  priceInp.value = '';
+  colorInp.value = '';
+  urlInp.value = '';
+  categoryInput.value = '';
+}
+    
