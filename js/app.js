@@ -2,6 +2,8 @@ const addBtn = document.getElementById('addBtn');
 const modal = document.getElementById('modal');
 const createBtn = document.getElementById('createBtn');
 const container = document.getElementById('productContainer');
+const overlayEl = document.querySelector(".overlay")
+
 
 const nameInp = document.getElementById('name');
 const priceInp = document.getElementById('price');
@@ -9,8 +11,12 @@ const colorInp = document.getElementById('color');
 const urlInp = document.getElementById('url');
 const categoryInput = document.getElementById('category');
 
+const products = JSON.parse(localStorage.getItem('products')) || [];  
+
 addBtn.onclick = () => {
   modal.classList.remove('hidden');
+  closeAllPopap()
+  
 };
 
 
@@ -30,8 +36,9 @@ createBtn.onclick = () => {
   clearInputs();
 };
 
-onload = () => {
-  const products = JSON.parse(localStorage.getItem('products')) || [];
+window.onload = () => {
+  createCard(DATA)
+
   products.forEach(p => addToDOM(p));
 };
 
@@ -62,3 +69,15 @@ function clearInputs() {
   categoryInput.value = '';
 }
     
+function showOverlay() {
+  overlayEl.classList.add("show")
+}
+
+function hideOverlay() {
+  overlayEl.classList.remove("show")
+
+}
+function closeAllPopap() {
+  addToDOM()
+
+}
